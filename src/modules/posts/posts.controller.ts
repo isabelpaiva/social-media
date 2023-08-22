@@ -7,17 +7,17 @@ export class PostsController {
   constructor(private postsService: PostsService) {}
 
   @Post()
-  create(@Body() data: createPostDTO) {
-    return this.postsService.create(data);
+  async create(@Body() data: createPostDTO) {
+    return await this.postsService.create(data);
   }
 
   @Get()
-  findAll() {
-    return this.postsService.findAll();
+  async findAll() {
+    return await this.postsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.postsService.findOne(id);
   }
 }

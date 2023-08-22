@@ -8,6 +8,6 @@ export class Post {
 
   constructor() {
     this.id = randomUUID();
-    this.createdAt = this.createdAt || new Date();
+    this.createdAt = new Date();
   }
 }
