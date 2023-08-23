@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { createPostDTO } from './dtos/create-post.dto';
+import { createPostDto } from './dtos/create-post.dto';
 import { PostsRepository } from './repositories/posts.repository';
 import { UpdatePostDto } from './dtos/update-post.dto';
 
@@ -7,7 +7,7 @@ import { UpdatePostDto } from './dtos/update-post.dto';
 export class PostsService {
   constructor(private postsRepository: PostsRepository) {}
 
-  async create(data: createPostDTO, userId: string) {
+  async create(data: createPostDto, userId: string) {
     return await this.postsRepository.create(data, userId);
   }
 

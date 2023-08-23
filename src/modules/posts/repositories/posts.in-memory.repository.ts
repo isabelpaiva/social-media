@@ -1,11 +1,11 @@
-// import { createPostDTO } from '../dtos/create-post.dto';
+// import { createPostDto } from '../dtos/create-post.dto';
 // import { Post } from '../entities/posts.entitie';
 // import { PostsRepository } from './posts.repository';
 
 // export class PostsInMemoryRepository implements PostsRepository {
 //   private database: Post[] = [];
 
-//   async create(data: createPostDTO): Promise<Post> {
+//   async create(data: createPostDto): Promise<Post> {
 //     const newPost = new Post();
 //     Object.assign(newPost, {
 //       ...data,

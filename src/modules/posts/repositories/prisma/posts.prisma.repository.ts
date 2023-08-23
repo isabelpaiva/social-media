@@ -1,5 +1,5 @@
 import { PrismaService } from 'src/database/prisma.service';
-import { createPostDTO } from '../../dtos/create-post.dto';
+import { createPostDto } from '../../dtos/create-post.dto';
 import { Post } from '../../entities/posts.entitie';
 import { PostsRepository } from '../posts.repository';
 import { Injectable } from '@nestjs/common';
@@ -10,7 +10,7 @@ import { plainToInstance } from 'class-transformer';
 export class postsPrismaRepository implements PostsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: createPostDTO, userId: string): Promise<Post> {
+  async create(data: createPostDto, userId: string): Promise<Post> {
     const post = new Post();
     Object.assign(post, {
       ...data,
