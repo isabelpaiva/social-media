@@ -7,10 +7,12 @@ import {
   UseGuards,
   Request,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { createPostDTO } from './dtos/create-post.dto';
 import { JwtauthGuard } from '../auth/jwt-auth.guard';
+import { UpdatePostDto } from './dtos/update-post.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -31,6 +33,12 @@ export class PostsController {
   async findOne(@Param('id') id: string) {
     return await this.postsService.findOne(id);
   }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+    return this.postsService.update(id, updatePostDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(id);

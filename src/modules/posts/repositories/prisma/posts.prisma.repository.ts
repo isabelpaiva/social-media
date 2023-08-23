@@ -3,6 +3,8 @@ import { createPostDTO } from '../../dtos/create-post.dto';
 import { Post } from '../../entities/posts.entitie';
 import { PostsRepository } from '../posts.repository';
 import { Injectable } from '@nestjs/common';
+import { UpdatePostDto } from '../../dtos/update-post.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class postsPrismaRepository implements PostsRepository {
@@ -34,6 +36,15 @@ export class postsPrismaRepository implements PostsRepository {
     });
 
     return post;
+  }
+
+  async update(id: string, data: UpdatePostDto): Promise<Post> {
+    const post = await this.prisma.post.update({
+      where: { id },
+      data: { ...data },
+    });
+
+    return plainToInstance(Post, post);
   }
 
   async delete(id: string): Promise<void> {
