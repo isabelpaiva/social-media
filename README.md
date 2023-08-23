@@ -1,73 +1,140 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# SocialMedia
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+API simples em Nest.js que simula uma rede social.
 
-## Description
+## Tecnologias Utilizadas: 
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Nest.js
+- Prisma
 
-## Installation
+## Tabela de Conteúdos
+
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [API Endpoints](#api-endpoints)
+- [Banco de Dados](#banco-de-dados)
+
+## Instalação
+
+1. Clone o repositório:
 
 ```bash
-$ npm install
+$ git clone git@github.com:isabelpaiva/social-media.git
 ```
 
-## Running the app
+2. Instale as dependências.
+
+ ```bash
+npm install
+```
+
+3. Rode as migrações com o Prisma
+
+ ```bash
+npx prisma migrate dev
+```
+
+## Configuração
+
+1. Inicie a aplicação com o comando:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm run start:dev
 ```
 
-## Test
+3. A API estará acessível em http://localhost:3000
 
-```bash
-# unit tests
-$ npm run test
+4. A documentação pode ser acessada em: http://localhost:3000/api#/
 
-# e2e tests
-$ npm run test:e2e
+## Endpoints:
 
-# test coverage
-$ npm run test:cov
-```
+| Método | Endpoint                   | Responsabilidade                                  | Autenticação                           |
+| ------ | -------------------------- | ------------------------------------------------- | -------------------------------------- |
+| POST   | /users                     | Criação de usuário                                | Qualquer usuário, não necessita token  |
+| GET    | /users:id                  | Lista um usuário                                  | Qualquer usuário, não necessita token  |
+| GET    | /users                     | Lista todos os usuários                           | Qualquer usuário, não necessita token  |
+| PUT    | /users/:id                 | Atualiza um usuário                               | Qualquer usuário, não necessita token  |
+| DELETE | /users/:id                 | Realiza um delete no usuário                      | Qualquer usuário, não necessita token  |
+| POST   | /login                     | Gera o token de autenticação                      | Qualquer usuário, não necessita token  |
+| POST   | /posts                     | Criação de um post                                | Apenas o dono da conta                 |
+| GET    | /posts                     | Lista todos os posts                              | Qualquer usuário, não necessita token  |
+| GET    | /posts/:id                 | Lista um post                                     | Qualquer usuário, não necessita token  |
+| PUT    | /posts/:id                 | Atualiza um post                                  | Apenas o dono da conta                 |
+| DELETE | /posts/:id                 | Realiza um delete no post                         | Apenas o dono da conta                 |
 
-## Support
+## Requisitos do Serviço
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### POST - /users
 
-## Stay in touch
+-   Rota para criação de usuário com os seguintes dados:
+    -   **id**: Valor SERIAL. Não deve ser passado, mas gerado pelo crypto;
+    -   **name**: string, obrigatório;
+    -   **email**: string, obrigatório e único;
+    -   **password**: Deverá receber uma string, mas armazenar uma hash gerada com o **bcryptjs**;
+    -   **bio**: string, obrigatório;
+    -   **createdAt**: Não deve ser passado, mas gerado automaticamente;
+    -   **birthDate**: string, obrigatório;
+-   A rota de criação deve retornar todos os dados, com **exceção da hash** de senha;
+-   Não podem ser cadastrados dois usuários com o mesmo **e-mail**;
+-   A rota **não precisa de autenticação** para ser acessada.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### GET - /users
 
-## License
+-   A rota deve retornar todos os dados dos usuários, com exceção da hash de senha;
 
-Nest is [MIT licensed](LICENSE).
+### GET - /users/:id
+
+-   Rota deve listar todos os users.
+-   A rota não precisa de autenticação para ser acessada.
+
+### PUT - /users/:id
+
+-   A rota deve atualizar os dados do usuário;
+-   Não deve ser possível atualizar os campos **id**;
+
+### DELETE - /users/:id
+
+-   A rota deve realizar um delete do usuário;
+
+### POST - /login
+
+-   Rota de login recebendo **email** e **password**;
+-   O login deve validar se o usuário existe e validar se a senha está correta;
+-   Não deve ser possível realizar o login de um usuário marcado como deletado;
+-   A rota **não precisa de autenticação** para ser acessada.
+
+### POST - /posts
+
+-   Rota para criação de posts com os seguintes dados:
+    -   **id**: Valor SERIAL. Não deve ser passado, mas gerado pelo crypto.
+    -   **content**: string, obrigatório
+-   A rota precisa de autenticação.
+
+### GET - /posts
+
+-   Rota deve listar todos os posts.
+-   A rota não precisa de autenticação para ser acessada.
+
+### GET - /posts/:id
+
+-   Rota deve listar todos os posts de um usuário específico.
+-   A rota não precisa de autenticação para ser acessada.
+
+### PUT - /posts/;id
+
+-   A rota deve atualizar os dados do usuário;
+-   Não deve ser possível atualizar os campos **id**;
+-   A rota precisa de autenticação.
+
+### DELETE - /posts/:id
+
+-   A rota deve realizar um delete do post;
+-   A rota precisa de autenticação.
+
+
+## Banco de Dados
+
+O projeto utiliza o PostgresSQL como banco de dados. As migrações de banco de dados necessárias são gerenciadas usando o Prisma.
+
+Para instalar o PostgresSQL localmente, você pode [clicar aqui](https://www.postgresql.org/download/).
