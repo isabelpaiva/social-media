@@ -34,11 +34,13 @@ export class PostsController {
     return await this.postsService.findOne(id);
   }
 
+  @UseGuards(JwtauthGuard)
   @Put(':id')
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postsService.update(id, updatePostDto);
   }
 
+  @UseGuards(JwtauthGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.postsService.remove(id);
