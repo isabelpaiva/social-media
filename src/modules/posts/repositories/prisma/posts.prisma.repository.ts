@@ -8,7 +8,7 @@ import { Injectable } from '@nestjs/common';
 export class postsPrismaRepository implements PostsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: createPostDTO): Promise<Post> {
+  async create(data: createPostDTO, userId: string): Promise<Post> {
     const post = new Post();
     Object.assign(post, {
       ...data,
@@ -17,7 +17,7 @@ export class postsPrismaRepository implements PostsRepository {
       data: {
         id: post.id,
         content: post.content,
-        userId: post.userId,
+        userId,
         createdAt: post.createdAt,
       },
     });
@@ -34,5 +34,11 @@ export class postsPrismaRepository implements PostsRepository {
     });
 
     return post;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.post.delete({
+      where: { id },
+    });
   }
 }
