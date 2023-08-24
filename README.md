@@ -1,78 +1,71 @@
-
 # SocialMedia
 
 API simples em Nest.js que simula uma rede social.
 
-## Tecnologias Utilizadas: 
+A documentação da API está disponível em: [http://localhost:3000/api#/](http://localhost:3000/api#/)
 
-# SocialMedia
-
-API simples em Nest.js que simula uma rede social.
 
 ## Tecnologias Utilizadas: 
 
 - Nest.js
+- Typescript
 - Prisma
-- Nest.js
-- Prisma
-
-## Tabela de Conteúdos
-## Tabela de Conteúdos
-
-- [Instalação](#instalação)
-- [Configuração](#configuração)
-- [API Endpoints](#api-endpoints)
-- [Banco de Dados](#banco-de-dados)
-- [Instalação](#instalação)
-- [Configuração](#configuração)
-- [API Endpoints](#api-endpoints)
-- [Banco de Dados](#banco-de-dados)
-
-## Instalação
+- JWT
+- bcrypt
+  
 ## Instalação
 
-1. Clone o repositório:
-1. Clone o repositório:
+#### Este repositório contém um arquivo Dockerfile. Siga as instruções abaixo para iniciar a aplicação usando o Docker. 
+
+## Pré-requisitos
+
+Certifique-se de ter o Docker instalado em sua máquina. Você pode baixá-lo [aqui](https://www.docker.com/get-started).
+
+## Instruções
+
+1. Clone este repositório para sua máquina:
 
 ```bash
 $ git clone git@github.com:isabelpaiva/social-media.git
+```
+
+2. Construa a imagem do Docker:
+```bash
+$ docker compose up --build
+# Executado na porta 3000 como padrão
+```
+
+## Instalação Local
+
+1. Clone este repositório para sua máquina:
+
+```bash
 $ git clone git@github.com:isabelpaiva/social-media.git
 ```
 
-2. Instale as dependências.
 2. Instale as dependências.
 
  ```bash
 npm install
 ```
- ```bash
-npm install
-```
 
-3. Rode as migrações com o Prisma
 3. Rode as migrações com o Prisma
 
  ```bash
 npx prisma migrate dev
- ```bash
-npx prisma migrate dev
-```
+ ```
 
-## Configuração
-
-1. Inicie a aplicação com o comando:
 ## Configuração
 
 1. Inicie a aplicação com o comando:
 
 ```bash
-npm run start:dev
 npm run start:dev
 ```
 
 3. A API estará acessível em http://localhost:3000
 
-4. A documentação pode ser acessada em: http://localhost:3000/api#/
+
 
 ## Endpoints:
 
@@ -84,11 +77,11 @@ npm run start:dev
 | PUT    | /users/:id                 | Atualiza um usuário                               | Qualquer usuário, não necessita token  |
 | DELETE | /users/:id                 | Realiza um delete no usuário                      | Qualquer usuário, não necessita token  |
 | POST   | /login                     | Gera o token de autenticação                      | Qualquer usuário, não necessita token  |
-| POST   | /posts                     | Criação de um post                                | Apenas o dono da conta                 |
+| POST   | /posts                     | Criação de um post                                | Apenas o dono do post                  |
 | GET    | /posts                     | Lista todos os posts                              | Qualquer usuário, não necessita token  |
 | GET    | /posts/:id                 | Lista um post                                     | Qualquer usuário, não necessita token  |
-| PUT    | /posts/:id                 | Atualiza um post                                  | Apenas o dono da conta                 |
-| DELETE | /posts/:id                 | Realiza um delete no post                         | Apenas o dono da conta                 |
+| PUT    | /posts/:id                 | Atualiza um post                                  | Apenas o dono do post                  |
+| DELETE | /posts/:id                 | Realiza um delete no post                         | Apenas o dono do post                  |
 
 ## Requisitos do Serviço
 
@@ -155,6 +148,5 @@ npm run start:dev
 -   A rota precisa de autenticação.
 
 ### DELETE - /posts/:id
-3. A API estará acessível em http://localhost:3000
-
-4. A documentação pode ser acessada em: http://localhost:3000/api#/
+-   A rota deve realizar um delete do post;
+-   A rota precisa de autenticação.
