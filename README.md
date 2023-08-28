@@ -66,6 +66,11 @@ npm run start:dev
 3. A API estará acessível em http://localhost:3000
 
 
+### Banco de Dados
+
+O projeto utiliza o PostgresSQL como banco de dados. As migrações de banco de dados necessárias são gerenciadas usando o Prisma.
+
+Para instalar o PostgresSQL localmente, você pode [clicar aqui](https://www.postgresql.org/download/).
 
 ## Endpoints:
 
@@ -141,7 +146,7 @@ npm run start:dev
 -   Rota deve listar todos os posts de um usuário específico.
 -   A rota não precisa de autenticação para ser acessada.
 
-### PUT - /posts/;id
+### PUT - /posts/:id
 
 -   A rota deve atualizar os dados do usuário;
 -   Não deve ser possível atualizar os campos **id**;
