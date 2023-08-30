@@ -10,8 +10,10 @@ A documentação da API está disponível em: [http://localhost:3000/api#/](http
 - Nest.js
 - Typescript
 - Prisma
-- JWT
-- bcrypt
+- Docker
+- bcryptjs
+- class-validator
+- passport-jwt
   
 ## Instalação
 
